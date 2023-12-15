@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {showToast} from 'vant';
 import {ref} from "vue";
-import Index from "../pages/Index.vue";
-import Team from "../pages/Team.vue";
+import {useRouter} from "vue-router"
 
-
-const onClickLeft = () => showToast('返回')
-const onClickRight = () => showToast('按钮');
+const router = useRouter()
+const onClickLeft = () => {
+  router.back()
+}
+const onClickRight = () => {
+  router.push("/search")
+}
 
 const active = ref('index')
 
@@ -32,19 +35,14 @@ const onChange = () => {
 
   <!--  内容-->
   <div>
-    <template v-if="active==='index'">
-      <Index/>
-    </template>
-    <template v-else="active==='team'">
-      <team/>
-    </template>
+    <router-view/>
   </div>
 
   <!--  Tabb-ar 标签栏-->
   <van-tabbar v-model="active" @change="onChange">
-    <van-tabbar-item icon="home-o" name="index">主页</van-tabbar-item>
-    <van-tabbar-item icon="search" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" name="user">个人</van-tabbar-item>
+    <van-tabbar-item to="/index" icon="home-o" name="index">主页</van-tabbar-item>
+    <van-tabbar-item to="/team" icon="search" name="team">队伍</van-tabbar-item>
+    <van-tabbar-item to="/user" icon="friends-o" name="user">个人</van-tabbar-item>
   </van-tabbar>
 
 </template>
