@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
-
+import {useRouter} from "vue-router";
 
 // 变量
+const router = useRouter()
 const searchText = ref('');
 const activeIds = ref([]);
 const activeIndex = ref(0);
@@ -12,6 +13,7 @@ const originTagList = [
     children: [
       {text: '男', id: "男"},
       {text: '女', id: "女"},
+      {text: '嬲', id: "嬲"},
     ],
   },
   {
@@ -58,6 +60,15 @@ const close = (tag: string) => {
     return item != tag;
   })
 };
+
+const doSearchResult = () => {
+  router.push({
+    path: "/user/list",
+    query: {
+      tags: activeIds.value
+    }
+  })
+}
 </script>
 
 <template>
@@ -70,6 +81,9 @@ const close = (tag: string) => {
         @cancel="onCancel"
     />
   </form>
+
+  <van-button type="primary" @click="doSearchResult">查找用户</van-button>
+
   <van-divider>已选标签</van-divider>
 
   <van-row justify="center">
@@ -83,7 +97,6 @@ const close = (tag: string) => {
       </van-tag>
     </van-col>
   </van-row>
-
 
   <van-divider>可选标签</van-divider>
 
