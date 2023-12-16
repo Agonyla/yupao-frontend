@@ -1,23 +1,12 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {showToast} from "vant";
-
-const value = ref('');
-const onSearch = (val) => showToast(val);
-const onCancel = () => showToast('取消')
-
-const show = ref(true);
-const close = (tag: string) => {
-  activeIds.value = activeIds.value.filter(item => {
-    return item != tag;
-  })
-
-};
 
 
+// 变量
+const searchText = ref('');
 const activeIds = ref([]);
 const activeIndex = ref(0);
-const tagList = [
+const originTagList = [
   {
     text: '性别',
     children: [
@@ -44,12 +33,37 @@ const tagList = [
     ],
   },
 ];
+
+const tagList = ref(originTagList)
+
+// 函数
+
+const onSearch = () => {
+  tagList.value = tagList.value.map(parentTag => {
+    const tempChildren = [...parentTag.children];
+    const tempParentTag = {...parentTag};
+    tempParentTag.children = tempChildren.filter(item => item.text.includes(searchText.value))
+    return tempParentTag;
+  })
+}
+const onCancel = () => {
+  searchText.value = '';
+  tagList.value = originTagList;
+  activeIds.value = []
+}
+
+const show = ref(true);
+const close = (tag: string) => {
+  activeIds.value = activeIds.value.filter(item => {
+    return item != tag;
+  })
+};
 </script>
 
 <template>
   <form action="/">
     <van-search
-        v-model="value"
+        v-model="searchText"
         show-action
         placeholder="请输入搜索关键词"
         @search="onSearch"

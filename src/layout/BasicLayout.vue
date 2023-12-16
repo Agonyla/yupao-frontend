@@ -11,7 +11,7 @@ const onClickRight = () => {
   router.push("/search")
 }
 
-const active = ref('index')
+const active = ref('')
 
 const onChange = () => {
   showToast(active.value)
