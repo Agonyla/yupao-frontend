@@ -16,7 +16,7 @@ myAxios.interceptors.request.use((config) => {
 // 相应拦截器
 myAxios.interceptors.response.use((response) => {
     console.log("请求收到了: ", response)
-    return response;
+    return response.data;
 }, (error) => {
     return Promise.reject(error)
 });

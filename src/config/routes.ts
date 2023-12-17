@@ -5,6 +5,7 @@ import User from "../pages/UserPage.vue";
 import SearchPage from "../pages/SearchPage.vue";
 import UserEdit from "../pages/UserEditPage.vue";
 import SearchResultPage from "../pages/SearchResultPage.vue";
+import UserLoginPage from "../pages/UserLoginPage.vue";
 
 const routes = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
@@ -16,6 +17,7 @@ const routes = VueRouter.createRouter({
         {path: '/search', component: SearchPage},
         {path: '/user/edit', component: UserEdit},
         {path: '/user/list', component: SearchResultPage},
+        {path: '/user/login', component: UserLoginPage},
     ]
 })
 
