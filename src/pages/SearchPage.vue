@@ -19,10 +19,10 @@ const originTagList = [
   {
     text: '语言',
     children: [
-      {text: 'Java', id: 'Java'},
-      {text: 'Python', id: 'Python'},
-      {text: 'C', id: 'C'},
-      {text: 'C++', id: 'C++'},
+      {text: 'java', id: 'java'},
+      {text: 'python', id: 'python'},
+      {text: 'c', id: 'c'},
+      {text: 'c++', id: 'c++'},
     ],
   },
   {
@@ -82,7 +82,7 @@ const doSearchResult = () => {
     />
   </form>
 
-  <van-button type="primary" @click="doSearchResult">查找用户</van-button>
+  <van-button type="primary" block @click="doSearchResult">查找用户</van-button>
 
   <van-divider>已选标签</van-divider>
 
