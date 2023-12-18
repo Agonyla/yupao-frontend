@@ -4,6 +4,9 @@ const myAxios = axios.create({
     baseURL: "http://localhost:8080/api"
 });
 
+// 允许携带cookie
+myAxios.defaults.withCredentials = true
+
 // 拦截器 http://www.axios-js.com/zh-cn/docs/#
 // 请求拦截器
 myAxios.interceptors.request.use((config) => {

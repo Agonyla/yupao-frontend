@@ -16,7 +16,7 @@ const mockUser = [
     profile: '一条咸鱼',
     gender: 1,
     phone: '123456789101',
-    email: '1197134883@qq.com',
+    email: 'xxxxxxx@qq.com',
     planetCode: '1',
     avatarUrl: 'https://avatars.githubusercontent.com/u/120792979?s=400&u=024d55b340dc357b1e803d81d8cc363e24372d30&v=4',
     tags: ['java', 'emo', '摸鱼中'],
@@ -29,7 +29,7 @@ const mockUser = [
     profile: '小小菜鸡',
     gender: 0,
     phone: '123456789101',
-    email: '1197134883@qq.com',
+    email: 'xxxxxxxx@qq.com',
     planetCode: '2',
     avatarUrl: 'https://avatars.githubusercontent.com/u/24363384?v=4',
     tags: ['java', 'emo', '摸鱼中'],
@@ -43,13 +43,14 @@ onMounted(async () => {
     params: {
       tagNameList: tags
     },
-    paramsSerializer: params => qs.stringify(params, {indices: false}),
-
+    paramsSerializer: {
+      serialize: params => qs.stringify(params, {indices: false}),
+    }
   }).then(function (response) {
     console.log("/user/search/tags succeed ", response)
     showSuccessToast("请求成功")
     // console.log(response.data.data, typeof response.data.data)
-    return response.data.data
+    return response?.data
   }).catch(function (error) {
     console.log("/user/search/tags succeed ", error)
     showFailToast("请求失败")
@@ -82,8 +83,6 @@ onMounted(async () => {
       <van-button size="mini">联系我</van-button>
     </template>
   </van-card>
-  <!--搜索结果为空-->
-  <van-empty v-if="!userList || userList.length < 1" description="搜索结果为空"/>
 
 
 </template>
