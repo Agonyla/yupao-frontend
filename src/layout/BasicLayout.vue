@@ -34,7 +34,7 @@ const onChange = () => {
   </van-nav-bar>
 
   <!--  内容-->
-  <div>
+  <div id="content">
     <router-view/>
   </div>
 
@@ -48,5 +48,7 @@ const onChange = () => {
 </template>
 
 <style scoped>
-
+#content {
+  padding-bottom: 60px;
+}
 </style>

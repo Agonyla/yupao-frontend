@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
 import qs from "qs"
+import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute()
 const {tags} = route.query
@@ -68,23 +69,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <van-card
-      v-for="user in userList"
-      :desc="user.profile"
-      :title="`${user.userAccount}-${user.planetCode}`"
-      :thumb="user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag v-for="tag in user.tags" plain type="primary" style="margin-right: 8px; margin-top: 8px">
-        {{ tag }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button size="mini">联系我</van-button>
-    </template>
-  </van-card>
-
-
+  <user-card-list :user-list="userList"/>
 </template>
 
 <style scoped>
