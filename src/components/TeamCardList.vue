@@ -3,6 +3,11 @@
 
 import {TeamType} from "../model/team";
 import {TeamStatusEnum} from "../constans/team.ts";
+import {onMounted, ref} from "vue";
+import {getCurrnetUser} from "../services/user.ts";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 interface TeamCardListProps {
   teamList: TeamType[]
@@ -11,9 +16,18 @@ interface TeamCardListProps {
 const props = withDefaults(defineProps<TeamCardListProps>(), {
   teamList: [] as TeamType[],
 })
+const currentUser = ref()
 
 const doJoinTeam = () => {
   alert("加入队伍")
+}
+const doUpdateTeam = (id: number) => {
+  router.push({
+    path: "/team/update",
+    query: {
+      id,
+    }
+  })
 }
 
 const getFormattedDate = (date) => {
@@ -23,6 +37,11 @@ const getFormattedDate = (date) => {
       ('0' + (userDate.getMonth() + 1)).slice(-2) + '-' +
       ('0' + userDate.getDate()).slice(-2);
 }
+
+onMounted(async () => {
+  currentUser.value = await getCurrnetUser()
+})
+
 
 </script>
 
@@ -53,6 +72,9 @@ const getFormattedDate = (date) => {
     </template>
     <template #footer>
       <van-button size="mini" plain type="primary" @click="doJoinTeam(team.id)">加入队伍</van-button>
+      <van-button v-if="team.userId==currentUser.id" size="mini" plain type="primary"
+                  @click="doUpdateTeam(team.id)">更新队伍
+      </van-button>
     </template>
   </van-card>
 

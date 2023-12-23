@@ -1,21 +1,15 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()
-const initFormData = {
-  "name": "",
-  "description": "",
-  "expireTime": null,
-  "maxNum": 3,
-  "password": "",
-  "status": 0,
-}
+const route = useRoute()
 
-const addTeamData = ref({...initFormData})
+
+const addTeamData = ref({})
 
 //
 const result = ref('');
@@ -31,23 +25,48 @@ const onConfirm = ({selectedValues}) => {
   showPicker.value = false;
 };
 
+const id = parseInt(route.query.id)
+
+const getFormattedDate = (date) => {
+  const userDate = new Date(date)
+  return userDate.getFullYear() + '-' +
+      ('0' + (userDate.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + userDate.getDate()).slice(-2);
+}
+
+
+onMounted(async () => {
+  if (id <= 0) {
+    showFailToast("队伍加载失败1")
+    return
+  }
+  const res = await myAxios.get("/team/get", {
+    params: {
+      teamId: id,
+    },
+  })
+  if (res?.code === 0) {
+    addTeamData.value = res.data
+    console.log(addTeamData.value)
+  } else {
+    showFailToast("队伍加载失败2")
+  }
+})
 
 const onSubmit = async () => {
   const postData = {
     ...addTeamData.value,
     status: Number(addTeamData.value.status),
   };
-  // TODO 前端参数校验
-  console.log("===================", postData)
-  const res = await myAxios.post("/team/add", postData);
+  const res = await myAxios.post("/team/update", postData);
   if (res?.code === 0 && res.data) {
-    showSuccessToast("创建成功");
+    showSuccessToast("更新成功");
     router.push({
       path: "/team",
       replace: true,
     });
   } else {
-    showFailToast("创建失败");
+    showFailToast("更新失败");
   }
 }
 </script>
@@ -78,7 +97,7 @@ const onSubmit = async () => {
           readonly
           name="datePicker"
           label="过期时间"
-          :placeholder="addTeamData.expireTime ?? '点击选择过期时间'"
+          :placeholder="getFormattedDate(addTeamData.expireTime) ?? '点击选择过期时间'"
           @click="showPicker = true"
       />
       <van-popup v-model:show="showPicker" position="bottom">
