@@ -6,6 +6,8 @@ import {TeamStatusEnum} from "../constans/team.ts";
 import {onMounted, ref} from "vue";
 import {getCurrnetUser} from "../services/user.ts";
 import {useRouter} from "vue-router";
+import myAxios from "../plugins/myAxios.ts";
+import {showFailToast, showSuccessToast} from "vant";
 
 const router = useRouter()
 
@@ -19,7 +21,7 @@ const props = withDefaults(defineProps<TeamCardListProps>(), {
 const currentUser = ref()
 
 const doJoinTeam = () => {
-  alert("加入队伍")
+  alert("joinTeam")
 }
 const doUpdateTeam = (id: number) => {
   router.push({
@@ -29,6 +31,28 @@ const doUpdateTeam = (id: number) => {
     }
   })
 }
+const doQuitTeam = async (id: number) => {
+  const res = await myAxios.post("/team/quit", {
+    teamId: id,
+  })
+  if (res?.data === 0) {
+    showSuccessToast("队伍退出成功")
+  } else {
+    showFailToast("队伍退出失败")
+  }
+}
+
+const doDeleteTeam = async (id: number) => {
+  const res = await myAxios.post("/team/delete", {
+    teamId: id,
+  })
+  if (res?.data === 0) {
+    showSuccessToast("队伍解散成功")
+  } else {
+    showFailToast("队伍解散失败")
+  }
+}
+
 
 const getFormattedDate = (date) => {
   const userDate = new Date(date)
@@ -74,6 +98,12 @@ onMounted(async () => {
       <van-button size="mini" plain type="primary" @click="doJoinTeam(team.id)">加入队伍</van-button>
       <van-button v-if="team.userId==currentUser.id" size="mini" plain type="primary"
                   @click="doUpdateTeam(team.id)">更新队伍
+      </van-button>
+      <van-button size="mini" plain type="primary"
+                  @click="doQuitTeam(team.id)">退出队伍
+      </van-button>
+      <van-button v-if="team.userId==currentUser.id" size="mini" plain type="primary"
+                  @click="doDeleteTeam(team.id)">解散队伍
       </van-button>
     </template>
   </van-card>

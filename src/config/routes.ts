@@ -8,6 +8,9 @@ import SearchResultPage from "../pages/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/TeamAddPage.vue";
 import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
+import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
+import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
+import UserUpdatePage from "../pages/UserUpdatePage.vue";
 
 const routes = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
@@ -22,6 +25,9 @@ const routes = VueRouter.createRouter({
         {path: '/user/edit', component: UserEdit},
         {path: '/user/list', component: SearchResultPage},
         {path: '/user/login', component: UserLoginPage},
+        {path: '/user/update', component: UserUpdatePage},
+        {path: '/user/team/create', component: UserTeamCreatePage},
+        {path: '/user/team/join', component: UserTeamJoinPage},
     ]
 })
 
