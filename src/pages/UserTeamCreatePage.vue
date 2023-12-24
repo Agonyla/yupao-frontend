@@ -23,13 +23,14 @@ const listTeams = async (val = "", status = 0) => {
       status,
     },
   });
-  if (res?.code === 0 && res.data) {
+  console.log("============", res.data)
+  if (res?.code === 0) {
     teamList.value = res.data;
   } else {
     showFailToast("队伍加载失败");
   }
 }
-const onSearch = (val) => {
+const onSearch = (val: string) => {
   listTeams(val)
 }
 

@@ -48,6 +48,8 @@ const doJoinTeam = async () => {
   if (res?.code === 0) {
     showSuccessToast("队伍加入成功")
     doJoinCancel()
+    // 刷新当前页面
+    window.location.reload();
   } else {
     showFailToast("队伍加入失败")
   }
@@ -66,6 +68,8 @@ const doQuitTeam = async (id: number) => {
   })
   if (res?.code === 0) {
     showSuccessToast("队伍退出成功")
+    // 刷新当前页面
+    window.location.reload();
   } else {
     showFailToast("队伍退出失败")
   }
@@ -80,6 +84,8 @@ const doDeleteTeam = async (id: number) => {
   } else {
     showFailToast("队伍解散失败")
   }
+  // 刷新当前页面
+  window.location.reload();
 }
 
 
@@ -114,7 +120,7 @@ onMounted(async () => {
     </template>
     <template #bottom>
       <div>
-        {{ '最大人数: ' + team.maxNum }}
+        {{ `队伍人数: ${team.hasJoinNum} / ${team.maxNum}` }}
       </div>
       <div v-if="team.expireTime">
         {{ '过期时间: ' + getFormattedDate(team.expireTime) }}
@@ -140,7 +146,7 @@ onMounted(async () => {
   </van-card>
   <van-dialog v-model:show="showPasswordDialog" title="请输入密码" show-cancel-button @confirm="doJoinTeam"
               @cancel="doJoinCancel">
-    <van-field v-model="password" placeholder="请输入密码"/>
+    <van-field v-model="password" type="password" placeholder="请输入密码"/>
   </van-dialog>
 
 
