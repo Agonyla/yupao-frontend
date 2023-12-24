@@ -5,6 +5,7 @@ import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
 import qs from "qs"
 import UserCardList from "../components/UserCardList.vue";
+import {UserType} from "../model/user";
 
 const route = useRoute()
 const {tags} = route.query
@@ -60,7 +61,7 @@ onMounted(async () => {
 
   // console.log("userListData: ", userListData)
   if (userListData) {
-    userListData.forEach(user => {
+    userListData.forEach((user: UserType) => {
       user.tags = JSON.parse(user.tags)
     })
     userList.value = userListData
