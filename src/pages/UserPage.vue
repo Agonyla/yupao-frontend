@@ -54,26 +54,16 @@ onMounted(async () => {
 
 <template>
   <div v-if="user">
-    <van-cell title="用户名" is-link to="/user/edit" :value="user.username"
-              @click="toEdit('username','用户名',user.username)"/>
-    <van-cell title="账户" :value="user.userAccount"/>
-    <van-cell title="头像" is-link to="/user/edit" :value="user.avatarUrl"
-              @click="toEdit('avatarUrl','头像',user.avatarUrl)">
+    <van-cell title="当前用户" :value="user.username"/>
+    <div style="text-align: center">
       <van-image
-          width="100"
-          height="100"
+          round
+          width="10rem"
+          height="10rem"
+          position="center"
           :src="user.avatarUrl"
       />
-    </van-cell>
-    <van-cell title="性别" is-link to="/user/edit" :value="user.gender"
-              @click="toEdit('gender','性别',user.gender)"/>
-    <van-cell title="电话" is-link to="/user/edit" :value="user.phone"
-              @click="toEdit('phone','电话',user.phone)"/>
-    <van-cell title="邮箱" is-link to="/user/edit" :value="user.email"
-              @click="toEdit('email','邮箱',user.email)"/>
-    <van-cell title="星球编号" :value="user.planetCode"/>
-    <van-cell title="注册时间" :value="formattedDate"/>
-
+    </div>
     <van-cell title="修改信息" is-link to="/user/update"/>
     <van-cell title="我创建的队伍" is-link to="/user/team/create"/>
     <van-cell title="我加入的队伍" is-link to="/user/team/join"/>

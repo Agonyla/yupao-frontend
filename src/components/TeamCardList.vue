@@ -95,14 +95,16 @@ onMounted(async () => {
       </div>
     </template>
     <template #footer>
-      <van-button size="mini" plain type="primary" @click="doJoinTeam(team.id)">加入队伍</van-button>
-      <van-button v-if="team.userId==currentUser.id" size="mini" plain type="primary"
+      <van-button size="small" plain type="primary"
+                  @click="doJoinTeam(team.id)">加入队伍
+      </van-button>
+      <van-button v-if="team.userId==currentUser.id" size="small" plain type="primary"
                   @click="doUpdateTeam(team.id)">更新队伍
       </van-button>
-      <van-button size="mini" plain type="primary"
+      <van-button v-if="team.userId==currentUser.id" size="small" plain type="primary"
                   @click="doQuitTeam(team.id)">退出队伍
       </van-button>
-      <van-button v-if="team.userId==currentUser.id" size="mini" plain type="primary"
+      <van-button v-if="team.userId==currentUser.id" size="small" plain type="primary"
                   @click="doDeleteTeam(team.id)">解散队伍
       </van-button>
     </template>
