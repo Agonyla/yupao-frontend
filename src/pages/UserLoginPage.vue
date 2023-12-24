@@ -2,9 +2,10 @@
 import {ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()
+const route = useRoute()
 const userAccount = ref('');
 const userPassword = ref('');
 const onSubmit = async () => {
@@ -14,7 +15,9 @@ const onSubmit = async () => {
   })
   if (res.code === 0 && res.data) {
     showSuccessToast("登录成功")
-    router.replace("/")
+    // 跳转到之前的页面
+    const redirectUrl = route.query?.redirect as string ?? '/';
+    window.location.href = redirectUrl
   } else {
     showFailToast("登录失败")
     console.log(res)

@@ -4,6 +4,7 @@ import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import {showFailToast, showSuccessToast} from "vant";
 import {getCurrnetUser} from "../services/user.ts";
+import myAxios from "../plugins/myAxios.ts";
 
 const router = useRouter()
 // const user: UserType = {
@@ -27,6 +28,18 @@ const toEdit = (editKey: string, editName: string, currentValue: string | number
       currentValue
     }
   })
+}
+
+const doLogout = async () => {
+  const res = await myAxios.post('/user/logout', {})
+  if (res?.code === 0) {
+    showSuccessToast("退出登录成功")
+    router.push({
+      path: '/user/login'
+    })
+  } else {
+    showFailToast("退出登录失败")
+  }
 }
 
 // 从后端获取用户信息
@@ -67,6 +80,8 @@ onMounted(async () => {
     <van-cell title="修改信息" is-link to="/user/update"/>
     <van-cell title="我创建的队伍" is-link to="/user/team/create"/>
     <van-cell title="我加入的队伍" is-link to="/user/team/join"/>
+
+    <van-button type="primary" block @click="doLogout">退出登录</van-button>
   </div>
 
 </template>

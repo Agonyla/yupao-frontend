@@ -46,7 +46,7 @@ onMounted(() => {
       placeholder="搜索队伍"
       @search="onSearch"
   />
-  <van-button type="primary" block @click="doJoinTeam">加入队伍</van-button>
+  <van-button class="add-button" type="primary" icon="plus" @click="doJoinTeam"></van-button>
   <team-card-list :team-list="teamList"/>
   <van-empty v-if="!teamList||teamList.length<1" description="搜索结果为空"/>
 

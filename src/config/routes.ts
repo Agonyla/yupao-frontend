@@ -1,4 +1,3 @@
-import * as VueRouter from 'vue-router';
 import Index from "../pages/Index.vue";
 import Team from "../pages/TeamPage.vue";
 import User from "../pages/UserPage.vue";
@@ -12,23 +11,21 @@ import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import UserUpdatePage from "../pages/UserUpdatePage.vue";
 
-const routes = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
-    routes: [
-        {path: '/', component: Index},
-        {path: '/index', component: Index},
-        {path: '/team', component: Team},
-        {path: '/team/add', component: TeamAddPage},
-        {path: '/team/update', component: TeamUpdatePage},
-        {path: '/user', component: User},
-        {path: '/search', component: SearchPage},
-        {path: '/user/edit', component: UserEdit},
-        {path: '/user/list', component: SearchResultPage},
-        {path: '/user/login', component: UserLoginPage},
-        {path: '/user/update', component: UserUpdatePage},
-        {path: '/user/team/create', component: UserTeamCreatePage},
-        {path: '/user/team/join', component: UserTeamJoinPage},
-    ]
-})
+const routes = [
+    {path: '/', component: Index},
+    {path: '/index', title: '主页', component: Index},
+    {path: '/team', title: '队伍搜索', component: Team},
+    {path: '/team/add', title: '创建队伍', component: TeamAddPage},
+    {path: '/team/update', title: '更新队伍', component: TeamUpdatePage},
+    {path: '/search', title: '伙伴搜索', component: SearchPage},
+    {path: '/user', title: '个人信息', component: User},
+    {path: '/user/edit', title: '编辑信息', component: UserEdit},
+    {path: '/user/list', title: '用户列表', component: SearchResultPage},
+    {path: '/user/login', title: '用户登录', component: UserLoginPage},
+    {path: '/user/update', title: '更新信息', component: UserUpdatePage},
+    {path: '/user/team/create', title: '我创建的队伍', component: UserTeamCreatePage},
+    {path: '/user/team/join', title: '我加入的队伍', component: UserTeamJoinPage},
+]
+
 
 export default routes
