@@ -37,8 +37,9 @@ const mockUser = [
     createTime: new Date(),
   }]
 const userList = ref([])
-
+const loading = ref(true)
 onMounted(async () => {
+  loading.value = true;
   const userListData = await myAxios.get("/user/search/tags", {
     // withCredentials: false,
     params: {
@@ -64,12 +65,13 @@ onMounted(async () => {
     })
     userList.value = userListData
   }
+  loading.value = false;
 })
 
 </script>
 
 <template>
-  <user-card-list :user-list="userList"/>
+  <user-card-list :user-list="userList" :loading="loading"/>
   <van-empty v-if="!userList||userList.length<1" description="搜索结果为空"/>
 </template>
 

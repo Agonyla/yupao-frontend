@@ -81,7 +81,13 @@ onMounted(async () => {
     <van-cell title="我创建的队伍" is-link to="/user/team/create"/>
     <van-cell title="我加入的队伍" is-link to="/user/team/join"/>
 
-    <van-button type="primary" block @click="doLogout">退出登录</van-button>
+    <van-button
+        type="primary"
+        block
+        @click="doLogout"
+        style="top: 40px"
+    >退出登录
+    </van-button>
   </div>
 
 </template>
